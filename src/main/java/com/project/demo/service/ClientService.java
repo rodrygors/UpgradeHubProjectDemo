@@ -33,6 +33,10 @@ public class ClientService {
         return movieRepository.findById(id).orElseThrow(ClientNotFound::new);
     }
 
+    public List<Movie> getMoviesFromClient(Long id) {
+        return this.findClientById(id).getClient_movie();
+    }
+
     public Client addClient(Client client) {
         return clientRepository.save(client);
     }

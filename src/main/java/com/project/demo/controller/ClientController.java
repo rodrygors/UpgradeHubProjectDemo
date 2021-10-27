@@ -2,7 +2,9 @@ package com.project.demo.controller;
 
 import com.project.demo.controller.Request.ClientRequest;
 import com.project.demo.controller.Response.ClientResponse;
+import com.project.demo.controller.Response.MovieResponse;
 import com.project.demo.model.Client;
+import com.project.demo.model.Movie;
 import com.project.demo.service.ClientService;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +41,16 @@ public class ClientController {
         return clientService.findClientById(id).createClientResponse();
     }
 
+    @GetMapping(value = "/clients/{id}/movies")
+    public List<MovieResponse> getMoviesByClient(@PathVariable(value = "id") Long id){
+        List<Movie> movies = clientService.getMoviesFromClient(id);
+        List<MovieResponse> movieResponseList = new ArrayList<>();
+        for(Movie movie : movies){
+            movieResponseList.add(movie.createMovieResponse());
+        }
+        return movieResponseList;
+    }
+
     @PostMapping(value = "/clients")
     public ClientResponse createClient(@RequestBody ClientRequest clientRequest){
         return clientService.addClient(clientRequest.createClient()).createClientResponse();
@@ -54,6 +66,12 @@ public class ClientController {
             @PathVariable(value = "clientId") Long clientId,
             @PathVariable(value = "movieId") Long movieId){
         return clientService.addMovieToClient(clientId, movieId).createClientResponse();
+    }
+
+    @DeleteMapping(value = "/clients/{clientId}/movies/{movieId}")
+    public ClientResponse removeMovieFromClient(@PathVariable(value = "clientId") Long clientId,
+                                                @PathVariable(value = "movieId") Long movieId){
+        return clientService.removeMovieFromClient(clientId, movieId).createClientResponse();
     }
 
     @DeleteMapping(value = "/clients/{id}")
