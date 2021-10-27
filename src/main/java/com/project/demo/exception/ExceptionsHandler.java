@@ -3,6 +3,7 @@ package com.coffee.shop.exception;
 import com.project.demo.controller.HttpErrorResponse;
 import com.project.demo.exception.ClientNotFound;
 import com.project.demo.exception.MovieNotFound;
+import com.project.demo.exception.NegativeMovieStockException;
 import com.project.demo.exception.StoreNotFound;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -39,6 +40,16 @@ public class ExceptionsHandler {
     public HttpErrorResponse handleGenericException(MovieNotFound exception) {
         return new HttpErrorResponse(
                 404,
+                exception.getMessage(),
+                LocalDateTime.now()
+        );
+    }
+
+    @ExceptionHandler({NegativeMovieStockException.class})
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public HttpErrorResponse handleGenericException(NegativeMovieStockException exception) {
+        return new HttpErrorResponse(
+                409,
                 exception.getMessage(),
                 LocalDateTime.now()
         );
