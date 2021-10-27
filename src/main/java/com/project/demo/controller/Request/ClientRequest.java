@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -17,6 +19,6 @@ public class ClientRequest {
     //Creates a Client object.
     @JsonIgnore
     public Client createClient(){
-        return Client.builder().name(this.name).build();
+        return Client.builder().name(this.name).client_movie(new ArrayList<>()).build();
     }
 }

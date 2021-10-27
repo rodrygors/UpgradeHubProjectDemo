@@ -49,6 +49,13 @@ public class ClientController {
         return clientService.updateClient(id, clientRequest.getName()).createClientResponse();
     }
 
+    @PutMapping(value = "/clients/{clientId}/movies/{movieId}")
+    public ClientResponse addMovieToClient(
+            @PathVariable(value = "clientId") Long clientId,
+            @PathVariable(value = "movieId") Long movieId){
+        return clientService.addMovieToClient(clientId, movieId).createClientResponse();
+    }
+
     @DeleteMapping(value = "/clients/{id}")
     public void deleteClient(@PathVariable(value = "id") Long id){
         clientService.deleteClient(id);

@@ -1,10 +1,6 @@
-package com.coffee.shop.exception;
+package com.project.demo.exception;
 
 import com.project.demo.controller.HttpErrorResponse;
-import com.project.demo.exception.ClientNotFound;
-import com.project.demo.exception.MovieNotFound;
-import com.project.demo.exception.NegativeMovieStockException;
-import com.project.demo.exception.StoreNotFound;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -48,6 +44,24 @@ public class ExceptionsHandler {
     @ExceptionHandler({NegativeMovieStockException.class})
     @ResponseStatus(HttpStatus.CONFLICT)
     public HttpErrorResponse handleGenericException(NegativeMovieStockException exception) {
+        return new HttpErrorResponse(
+                409,
+                exception.getMessage(),
+                LocalDateTime.now()
+        );
+    }
+    @ExceptionHandler({RentedException.class})
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public HttpErrorResponse handleGenericException(RentedException exception) {
+        return new HttpErrorResponse(
+                409,
+                exception.getMessage(),
+                LocalDateTime.now()
+        );
+    }
+    @ExceptionHandler({MovieOutOfStockException.class})
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public HttpErrorResponse handleGenericException(MovieOutOfStockException exception) {
         return new HttpErrorResponse(
                 409,
                 exception.getMessage(),

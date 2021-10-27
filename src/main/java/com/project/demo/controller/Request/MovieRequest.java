@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Required;
 
+import java.util.ArrayList;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -33,6 +35,7 @@ public class MovieRequest {
                 .price(this.price)
                 .genre(this.genre)
                 .stock(this.stock)
+                .clients(new ArrayList<>())
                 .build();
     }
 }

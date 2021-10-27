@@ -35,17 +35,11 @@ public class Movie {
     private Store store;
 
     @ManyToMany(mappedBy = "client_movie", cascade = CascadeType.ALL)
-    private List<Client> clients = new ArrayList<>();
+    private List<Client> clients = new ArrayList<Client>();
 
     //Create a ClientResponse object.
     @JsonIgnore
     public MovieResponse createMovieResponse(){
-        List<ClientResponse> clientResponseList = new ArrayList<>();
-        if (!this.clients.isEmpty()){
-            for(Client client : this.clients){
-                clientResponseList.add(client.createClientResponse());
-            }
-        }
         return new MovieResponse(
                 this.id,
                 this.name,
@@ -53,8 +47,7 @@ public class Movie {
                 this.genre,
                 this.stock,
                 this.availableStock,
-                this.store.createStoreResponse(),
-                clientResponseList
+                this.store.createStoreResponse()
         );
     }
 }

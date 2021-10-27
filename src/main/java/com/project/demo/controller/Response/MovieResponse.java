@@ -25,6 +25,4 @@ public class MovieResponse {
     private int availableStock;
 
     private StoreResponse storeResponse;
-
-    private List<ClientResponse> clientResponseList = new ArrayList<>();
 }

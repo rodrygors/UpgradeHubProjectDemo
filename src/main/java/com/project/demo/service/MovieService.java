@@ -52,7 +52,7 @@ public class MovieService {
 
         //Calculate the difference between the new and old total stocks
         //and if the newAvailableStock is negative throw a Conflict exception
-        int newAvailableStock = movie.getAvailableStock() + (movie.getStock() - newMovie.getStock());
+        int newAvailableStock = movie.getAvailableStock() + (newMovie.getStock() - movie.getStock());
         if (newAvailableStock < 0) {
             throw new NegativeMovieStockException(
                     "New stock for this movie would be negative, current available stock is: "
